@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import authBg from "@/assets/images/bg-1.png";
-import { Input } from "@/shared";
+import { Input, Button } from "@/shared";
 
 export default function AuthLayout() {
     return (
-        <>
+        <> 
         <div 
         className = "min-h-screen w-full put-20"
         style={{
@@ -18,8 +18,59 @@ export default function AuthLayout() {
                     label="Nombre"
                     type="text"
                     placeholder="Escribe tu nombre"
-                    htmlFor = "Campo de nombre"
+                    htmlFor="user-name"
+                    variant = "primary"
+                    size = "sm"
                 />
+                <Input
+                    label="Correo"
+                    type="email"
+                    placeholder="Escribe tu correo"
+                    htmlFor="user-email"
+                    variant = "primary"
+                    size = "md"
+                />
+                <Input
+                    label="Telefono "
+                    type="tel"
+                    placeholder="Escribe tu telefono"
+                    htmlFor="user-phone"
+                    variant = "primary"
+                    size = "lg"
+                />
+                <Input
+                    label="Borrar Tipo de documento "
+                    type="tel"
+                    placeholder="Escribe tu telefono"
+                    htmlFor="user-phone"
+                />
+                <Input
+                    label="Documento"
+                    type="text"
+                    placeholder="Escribe tu documento"
+                    htmlFor="user-document-number"
+                />
+
+                    {/* Actions */}
+                <div className="flex gap-6 items-center">
+                    <Button
+                        variant="secondary"
+                        size="sm"
+                        type="button"
+                        onClick={() => {console.log("Se oprimió el submit")}}
+                    >
+                     Cancelar
+                    </Button>
+                    <Button
+                        variant="primary"
+                        size="md"
+                        type="submit"
+                        onClick={() => {console.log("Se oprimió el submit")}}
+                    >
+                     Guardar
+                    </Button>
+                </div>
+                
                 <h1> Hola que tal</h1>
                 <Outlet />
             </main>

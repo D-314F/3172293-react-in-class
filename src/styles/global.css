@@ -3,10 +3,10 @@
 @import "tailwindcss"; /*Esta linea debe quedar al final para que funcione */
 
 @theme{
-    /* ========BRAND==== */
 
+    /* ========BRAND==== */
     --color-brand: var(--semantic-brand);
-    --color-brand-hover: var(--semantic--brand-hover);
+    --color-brand-hover: var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
     --color-brand-soft-hover: var(--semantic-brand-soft-hover);
 
@@ -36,8 +36,8 @@
 
     /*==== STATE ======*/
 
-    --color-sucess: var(--semantic-success); 
-    --color-warning: var(--semantic-warning); 
+    --color-success: var(--semantic-success);
+    --color-warning: var(--semantic-warning);
     --color-error: var(--semantic-error);
     
     /*========= TYPOGRAPHY =========*/

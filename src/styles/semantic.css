@@ -30,13 +30,13 @@
     /*======= FOCUS ======*/
 
     --semantic-focus-ring: var(--color-primary-700);
-    /* --semantic-focus-border: var(--color-priamary-500); */
+    --semantic-focus-border: var(--color-primary-500);
 
     /*======= STATE ======*/
 
     --semantic-success: var(--color-primary-950);
     --semantic-warning: var(--color-primary-950);
-    --semantic-error: var(--color-secondary-950);
+    --semantic-error: var(--color-secundary-950);
 
     /*===== TYPOGRAPHY ====*/
 
