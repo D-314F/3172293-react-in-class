@@ -1,14 +1,33 @@
+import { useState, useEffect } from "react";
+
 import { Outlet } from "react-router-dom";
 import authBg from "@/assets/images/bg-1.png";
-import { Input, Button } from "@/shared";
-import DeleteCounter2 from "../components/DeleteCounter2";
-import EffectDemo from "../components/EffectDemo";
+import { 
+    Input, 
+    Button, 
+    DeleteCounter2, 
+    Select, 
+    Checkbox 
+} 
+from "@/shared";
+import { getDocumentTypes } from "../../services/selectService";
+
+
 
 export default function AuthLayout() {
+
+    //Estado para los tipos de documento
+    const [documentTypes, setDocumentTypes] = useState([]);
+
+    // Uso del estado useEffect 
+    useEffect(() => {
+        getDocumentTypes().then(setDocumentTypes);
+    },[])
+
     return (
         <> 
         <div 
-        className = "min-h-screen w-full put-20"
+        className = "min-h-screen w-full"
         style={{
             backgroundImage: `url(${authBg})`, // <--- Esta manera es en la que colocamos imagenes
             backgroundSize: "cover",
@@ -53,6 +72,13 @@ export default function AuthLayout() {
                     htmlFor="user-document-number"
                 />
 
+                <Select
+                    label="Tipo de documento"
+                    name="userDocumentTypes"
+                    htmlFor="userDocumentTypes"
+                    options={documentTypes}
+                />
+
                     {/* Actions */}
                 <div className="flex gap-6 items-center">
                     <Button
@@ -71,15 +97,28 @@ export default function AuthLayout() {
                     >
                      Guardar
                     </Button>
-                </div> {/* Actions */}
-                    {/* Implementacion del estado useState */}
+                </div>
+                
+                 {/* Actions */}
+                {/* Implementacion del estado useState */}
                     <div clasName ="mt-10">
                         <h1>Ejempllo useState</h1>
                         <DeleteCounter2 />
                     </div>
-                <h1> Hola que tal</h1>
+                {/*<h1> Hola que tal</h1>*/}
 
-                <EffectDemo />
+                {/*Implementacion de useEffect */}
+                {/* <div>
+                    <h1>Este es mi useEffect</h1>
+                    <EffectDemo />
+                </div> */}
+
+                {/*<CounterEffect />*/}
+
+              
+
+                <Checkbox />
+
                 
                 <Outlet />
             </main>
