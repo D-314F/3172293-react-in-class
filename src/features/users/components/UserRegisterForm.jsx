@@ -3,15 +3,27 @@
 import { useState, useEffect } from "react";
 import { Input, Select, Checkbox, Button } from "@/shared";
 import { getDocumentTypes } from "@/services/selectService";
+import { useNavigate } from "react-router-dom";
+import { userSchema } from "../schemas/userSchema";
+
+
 
 
 export default function UserRegisterForm (){
+        //
+
+        //Navegacion
+        const navigate = useNavigate();
+
+        //Estado del error
+         const [errors, setErrors] = useState({})
+
         // Estado del formulario 
-        const [formData, setFormData] =  useState({
+        const [FormData, setFormData] =  useState({
             userName: "",
             userEmail: "",
             userPhone: "",
-            userDocumentType: "",
+            userDocumentTypes: "",
             userDocumentNumber: "",
             userPassword: "",
             // userImage: [],
@@ -39,7 +51,6 @@ export default function UserRegisterForm (){
         const handleChange = (e) => {
             // Se obtiene el nombre del campo y su valor
             const { name, value, type, checked } = e.target;
-        }
 
         setFormData((prev) => ({
             // Se copian todos los valores anteriores del estado
@@ -50,6 +61,8 @@ export default function UserRegisterForm (){
         }));
     };
 
+ 
+
     //===================== HANDLE SUBMIT =============================
     const handleSubmit = async(e) => {
         //Evita que el formulario recargue la pagina
@@ -57,7 +70,7 @@ export default function UserRegisterForm (){
 
         //Validamos los datos del formulario contra el esquema Zod
         //saFeParse NO lanza exceptcion, retorna un objeto controlado
-        const result = userSchema.safeParse(formData);
+        const result = userSchema.safeParse(FormData);
 
         //Verificar en consola si el esquema está funcionado correctamente 
         // console.log(result);
@@ -81,73 +94,149 @@ export default function UserRegisterForm (){
 
             return;
         }
-
         // Si la validacion pasa, limpiamos errores previos
-    }
+        setErrors({});
+
+        //Activamos eestado de envio (util para desahibilitar el boton)
+        // setIsSubmitting(true);
+
+        try {
+            //llamamos al servivio frontend que soncume la API 
+            //result.data contiene los datos ya validamos por Zod
+            // const responde = await createUser(result.data); linea comentada es un servicio 
+
+            //Log informativo para desarrolllo
+            // console("Usuario Creado:", responde); igual
+
+            //Feedback basico al usuario 
+            alert("Usuario creado correctamente");
+
+            //Navegamos a la vista anterior
+            // navigate (-1) equivale a "volver atras"
+            navigate(-1);
+        } catch (error){
+            //Caoturamos errores de red o errores lanzados por el service
+            console.error("Error:" , error.message);
+
+            //Mstramos el mensaje de error al usuario 
+            alert(error.message);
+        } finally {
+            //Pase lo que pase, desactivamos el esrado de envio 
+            // setIsSubmitting(false);
+        }
+    };
+
+    //========================================
+    //          Handle NameChange
+    //========================================
+
+    // const handleNameChange = (e) => {
+    //     const value = e.target.value.trim();
+
+    //     if (value === "") {
+    //         console.log("El nombre no puede estar vacio");
+    //     }
+    // };
 
 return(
-        <div>
-            <Input
+        <div className="grid items-center justify-center">
+            <h1 className="mx-auto my-12 text-title font-heading font-bold ">
+                Registro de usuarios</h1>
+            {/* Formulario*/}
+            <form 
+                action=""
+                onSubmit={handleSubmit}
+            >
+
+                  <Input
                     label="Nombre"
+                    name="userName"
                     type="text"
+                    value={FormData.userName}
                     placeholder="Escribe tu nombre"
                     htmlFor="user-name"
+                    onChange={handleChange}
+                    error={errors.userName}
             />
             <Input
                     label="Correo"
+                    name="userEmail"
                     type="email"
+                     value={FormData.userEmail}
                     placeholder="Escribe tu correo electronico"
                     htmlFor="user-email"
+                    onChange={handleChange}
+                    error={errors.userEmail}
             />
             <Input
                     label="Telefono"
+                    name="userPhone"
                     type="tel"
+                    value={FormData.userPhone}
                     placeholder="Escribe tu numero de telefono"
                     htmlFor="user-phone"
+                    onChange={handleChange}
+                    error={errors.userPhone}
             />
 
             <Select
                     label="Tipo de documento"
                     name="userDocumentTypes"
+                    value={FormData.userDocumentTypes}
                     htmlFor="userDocumentTypes"
                     options={documentTypes}
+                    onChange={handleChange}
+                    error={errors.userDocumentTypes}
             />
              <Input
                     label="Documento"
+                    name="userDocumentNumber"
                     type="text"
+                    value={FormData.userDocumentNumber}
                     placeholder="Escribe tu numero de documento"
                     htmlFor="user-document-number"
+                    onChange={handleChange}
+                    error={errors.userDocumentNumber}
             />
              <Input
                     label="Contraseña"
+                    name="userPassword"
                     type="password"
+                    value={FormData.userPassword}
                     placeholder="Escribe tu contraseña"
                     htmlFor="user-password"
-            />
+                    onChange={handleChange}
+                    error={errors.userPassword}
+                    />
 
-            {/*Checkbox*/}
+                    {/*Checkbox*/}
+            <div className="grid gap-4 my-2">
+                <Checkbox
+                    id="isSuperUser"
+                    name="isSuperUser"
+                    label="Es super usuario"
+                    checked = {FormData.isSuperUser}
+                    onChange={handleChange}
+                />
+                <Checkbox
+                    id="isStaff"
+                    name="isStaff"
+                    label="Es staff"
+                    checked = {FormData.isStaff}
+                    onChange={handleChange}
+                />
+                <Checkbox
+                    id="isActive"
+                    name="isActive"
+                    label="Esta activo"
+                    checked = {FormData.isActive}
+                    onChange={handleChange}
+                />
+
+            </div>
+
             
-            <Checkbox
-                id="isSuperUser"
-                name="isSuperUser"
-                label="Es super usuario"
-                checked = {FormData.isSuperUser}
-                onChange={handleChange}
-            />
-            <Checkbox
-                id="isStaff"
-                name="isStaff"
-                label="Es staff"
-                checked = {FormData.isStaff}
-                onChange={handleChange}
-            />
-            <Checkbox
-                id="isActive"
-                name="isActive"
-                label="Esta activo"
-                checked = {FormData.isActive}
-                onChange={handleChange}
-            />
+            
 
 
             {/* Actions */}
@@ -170,8 +259,12 @@ return(
                     </Button>
                   
                 </div>
+                
+            
+          </form>
         </div>
     );
-
 }
+
+
 

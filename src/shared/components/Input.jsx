@@ -1,5 +1,6 @@
 export default function Input({
     label,
+    error,
     htmlFor, //Es para accesibilidad, la persona que tiene una discapacidad va a escuchar el texto que esta ahi con tab
     type = "text",
     variant="primary",
@@ -47,7 +48,6 @@ export default function Input({
                     text-caption
                     mb-1
                     text-secondary
-
                     ${
                         size === "sm"
                             ? "-mb-2"
@@ -55,6 +55,7 @@ export default function Input({
                             ? "-mb-0"
                             : "-mb-1"
                     }
+                    ${error ? "text-red-800" : "text-text-primary"}
                 `}
             >
                 
@@ -106,10 +107,16 @@ export default function Input({
                         focus:ring-brand
                         ${variants[variant]}
                         ${sizes[size]}
+
+                        ${error ? "border-red-800" : "border border-border"}
                     `}
                         {...props}
                     />
             </div>
+            {/*Feedback*/}
+            {error && (
+                <p className="text-caption text-red-800 place-self-start">{error}</p>
+            )}
         </div>
     );
 }

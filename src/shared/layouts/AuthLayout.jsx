@@ -1,128 +1,120 @@
-import { useState, useEffect } from "react";
-
+import{useState, useEffect} from "react";
 import { Outlet } from "react-router-dom";
 import authBg from "@/assets/images/bg-1.png";
-import { 
-    Input, 
+import {Input, 
     Button, 
     DeleteCounter2, 
     Select, 
     Checkbox 
 } 
 from "@/shared";
+// import EffectDemo from "../components/EffectDemo";
 import { getDocumentTypes } from "../../services/selectService";
 
-
-
-export default function AuthLayout() {
-
-    //Estado para los tipos de documento
-    const [documentTypes, setDocumentTypes] = useState([]);
-
-    // Uso del estado useEffect 
-    useEffect(() => {
+export default function AuthLayout(){
+    // Estado para los tipos de documentos
+    const[documentTypes, setDocumentTypes] = useState ([])
+    // El uso del estado  useEffect
+    useEffect(() =>{
         getDocumentTypes().then(setDocumentTypes);
     },[])
-
-    return (
-        <> 
-        <div 
-        className = "min-h-screen w-full"
+    
+    return(
+        <>
+        <div className="min-h-screen w-full"
         style={{
-            backgroundImage: `url(${authBg})`, // <--- Esta manera es en la que colocamos imagenes
+            backgroundImage: `url(${authBg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}
-    >
-            <main className = "mx-auto">
-                <Input
-                    label="Nombre"
+        >
+        <main className="mx-auto">
+                <Input 
+                    label="nombre"
                     type="text"
                     placeholder="Escribe tu nombre"
                     htmlFor="user-name"
-                    variant = "primary"
-                    size = "sm"
+                    variant="primary"
+                    size="sm"
                 />
-                <Input
-                    label="Correo"
+                <Input 
+                    label="correo"
                     type="email"
                     placeholder="Escribe tu correo"
                     htmlFor="user-email"
-                    variant = "primary"
-                    size = "md"
                 />
-                <Input
-                    label="Telefono "
+                <Input 
+                    label="Telefono"
                     type="tel"
-                    placeholder="Escribe tu telefono"
-                    htmlFor="user-phone"
-                    variant = "primary"
-                    size = "lg"
-                />
-                <Input
-                    label="Borrar Tipo de documento "
-                    type="tel"
-                    placeholder="Escribe tu telefono"
+                    placeholder="Escribe tu número de teléfono"
                     htmlFor="user-phone"
                 />
-                <Input
+                <Input 
+                    label="borrar tipo de documento"
+                    type="text"
+                    placeholder="Escribe tu nombre"
+                    htmlFor="name"
+                />
+                <Input 
                     label="Documento"
                     type="text"
-                    placeholder="Escribe tu documento"
+                    placeholder="Escribe tu número de documento"
                     htmlFor="user-document-number"
                 />
-
                 <Select
-                    label="Tipo de documento"
-                    name="userDocumentTypes"
-                    htmlFor="userDocumentTypes"
-                    options={documentTypes}
+                        label="tipos de documentos"
+                        name="userDocumentTypes"
+                        htmlFor="userDocumentTypes"
+                        options={documentTypes}
                 />
-
-                    {/* Actions */}
+                    {/*Actions*/}
                 <div className="flex gap-6 items-center">
-                    <Button
-                        variant="secondary"
-                        size="sm"
-                        type="button"
-                        onClick={() => {console.log("Se oprimió el submit")}}
-                    >
-                     Cancelar
-                    </Button>
-                    <Button
-                        variant="primary"
-                        size="md"
-                        type="submit"
-                        onClick={() => {console.log("Se oprimió el submit")}}
-                    >
-                     Guardar
-                    </Button>
+                
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  type="submit"
+                  onClick={() => console.log("se oprimio el submit")}
+
+                >  
+                 cancelar
+                </Button>
+                <Button
+                  variant="primary"
+                  size="md"
+                  type="submit"
+                  onClick={() => console.log("se oprimio el submit")}
+
+                >  
+                 Guardar
+                </Button>
+                </div>{/*Actions*/}
+
+                {/*Implementación del estado  useState */}
+                <div className="mt-10">
+                    <h1>Ejemplo useState</h1>
+                <DeleteCounter2/>
                 </div>
-                
-                 {/* Actions */}
-                {/* Implementacion del estado useState */}
-                    <div clasName ="mt-10">
-                        <h1>Ejempllo useState</h1>
-                        <DeleteCounter2 />
-                    </div>
-                {/*<h1> Hola que tal</h1>*/}
+                {/* <EffectDemo/> */}
+                    {/*<h1>Hola que tal</h1>*/}
 
-                {/*Implementacion de useEffect */}
-                {/* <div>
-                    <h1>Este es mi useEffect</h1>
-                    <EffectDemo />
-                </div> */}
+                    {/* Implementación de useEffect */}
+                    {/* <div>
+                        <h1>Este es mi useEffect</h1>
+                        <EffectDemo/>
+                    </div> */}
+                    {/* <CounterEffect/> */}
 
-                {/*<CounterEffect />*/}
-
-              
-
-                <Checkbox />
-
-                
-                <Outlet />
-            </main>
-        </div>
+                    <Select
+                        label="tipos de documentos"
+                        name="userDocumentTypes"
+                        htmlFor="userDocumentTypes"
+                        options={documentTypes}
+                    />
+                    <Checkbox/>
+                <Outlet/>
+        </main>
+        </div>   
         </>
     );
 }

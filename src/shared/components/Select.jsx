@@ -2,22 +2,26 @@
 
 export default function Select({
     label,
+    error,
     htmlFor,
     name,
     options = [],
-}){
+    value,
+    onChange,
+})
+{
     return (
         <div>
             {/* Label solo se muestra si es Truth un uno logico */}
 
             {label &&( //significa una comparacion binaria si label existe entonces se renderiza el label, si no no se renderiza nada
-            <label 
+           <label
                 htmlFor={htmlFor}
-                className="
-                        block 
-                        text-caption
-                        text-secondary
-                        "
+                className={`
+                    block
+                    text-caption
+                    ${error ? "text-red-600" : "text-secondary"}
+                `}
             >
                 {label}
             </label>
@@ -26,20 +30,22 @@ export default function Select({
             {/* Select */}
             <select
                 name={name}
-                id="htmlFor"
-                className="
-                
+                id={htmlFor}
+                value={value}
+                onChange={onChange}
+                className={`
                     w-80
                     h-10
                     rounded-md
                     border
                     px-4
-
                     horver:border
                     border:border-2
-                    hober:border-focus-border
-                    "
-                >
+                    hover:border-focus-border
+
+                    ${error ? "border-red-600" : "border-gray-300"}
+                `}
+                    >
                    <option value="">Seleccione una opción</option> 
 
                    {options.map((opt) => (
@@ -47,8 +53,10 @@ export default function Select({
                             {opt.label}
                         </option>
                    ))}
-
                 </select>
+                {error && (
+                <p className="text-caption text-red-800 place-self-start mt-1">{error}</p>
+            )}
         </div>
          //este es el contenido del selector , primera opcion dise que selecicone una opcion
 

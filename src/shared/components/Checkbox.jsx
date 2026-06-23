@@ -1,26 +1,28 @@
 export default function Checkbox({
-    id,                 //Identificador unico(necesario para accesibilidad)
-    name,               //Nombre del campo (util para formulario)
-    label,              //Texto visible asociado al checkbox
-    checked = false,    //Estado controlado del checkbox
-    onChange,           //Funcion que maneja el cambio
-    disabled = false,    //Indica si el checkbox esta habilitado
-    className = "",     //Clases adicionales para personalizacion
-})  {
-//Si esta desabilitaodo una opcitdad de 50 si no esta vacio, el ? es ternario si eso es 1, y si es falso no hace nada
+id,
+name,
+label,
+checked = false,
+onChange,
+disabled = false,
+classname = "",
+}) {
+
     return (
         <label 
             htmlFor={id}
-            className={`
-                flex items-center gap-2
-                text-sm
-                cutsor-pointer
-                ${disabled ? "opacity-50 cursor-not-allowed" : ""} 
-                ${className}
-            `}
+            className={`*
+                    flex items-center gap-2
+                    text-sm
+                    cursor-pointer
+                    ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+                    ${classname}
+                
+                `}  
         >
-            {/* Input del checkbox */}
-            <input 
+            {/**input del checkbox */}
+
+            <input
                 id={id}
                 name={name}
                 type="checkbox"
@@ -30,8 +32,8 @@ export default function Checkbox({
                 className="w-5 h-5"
             />
 
-            {/* Texto del checkbox */}
-            <span>{label}</span> 
+            {/**Texto del checkbox */}
+            <span>{label}</span>
         </label>
-    )
+    );                    
 }
