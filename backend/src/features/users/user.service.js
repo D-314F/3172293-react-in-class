@@ -20,11 +20,11 @@ async createUser(data) {
         const hashedPassword = await bcrypt.hash(data.userPassword, 10);
 
         const userData = {
-        ... data,
+        ...data,
         userPassword: hashedPassword,
         };
 
-        console.log("SERVICE DATA:", userData);
+        console.log("SERVICE DATA:", data);
 
         // En este punto, en una arquitectura real, deberián, ocurrir:
         // - Validaciones de reglas de negocio
