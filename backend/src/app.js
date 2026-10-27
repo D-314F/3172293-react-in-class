@@ -16,7 +16,16 @@ const app = express();
 // Middleware de CORS
 // Permite solicitudes unicamente desde el fonrtend en localhost:5173
 // (típico proyecto Vite en desarrollo)
-app.use(cors({ origin: "http://localhost:5173" }));
+// Middleware de CORS para desarrollo y producción
+app.use(
+    cors({
+        origin: [
+            "http://grupo5.ricoprogramar.com",
+            "http://localhost:5173"
+        ],
+        credentials: true
+    })
+);
 
 // Middleware para parsear cuerpois de peticion en formato JSON
 
